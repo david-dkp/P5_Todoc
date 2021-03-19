@@ -1,25 +1,36 @@
 package com.cleanup.todoc.data.local.todocdatabase;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 
+import com.cleanup.todoc.data.local.todocdatabase.entities.ProjectEntity;
+import com.cleanup.todoc.data.local.todocdatabase.entities.TaskEntity;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+
+import java.util.List;
 
 @Dao
 public interface TodocDao {
 
     @Insert
-    void insertTask(Task task);
+    void insertTask(TaskEntity taskEntity);
 
     @Delete
-    void deleteTask(Task task);
+    void deleteTask(TaskEntity taskEntity);
 
     @Insert
-    void insertProject(Project project);
+    void insertProject(ProjectEntity projectEntity);
 
     @Delete
-    void deleteProject(Project project);
+    void deleteProject(ProjectEntity projectEntity);
 
+    @Query("SELECT * FROM task_table")
+    LiveData<List<TaskEntity>> getTasks();
+
+    @Query("SELECT * FROM project_table")
+    LiveData<List<ProjectEntity>> getProjects();
 }
