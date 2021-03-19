@@ -3,6 +3,8 @@ package com.cleanup.todoc.data.local.todocdatabase.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.cleanup.todoc.model.Project;
+
 @Entity(tableName = "project_table")
 public class ProjectEntity {
 
@@ -17,6 +19,14 @@ public class ProjectEntity {
         this.id = id;
         this.name = name;
         this.color = color;
+    }
+
+    public static ProjectEntity fromProject(Project project) {
+        return new ProjectEntity(project.getId(), project.getName(), project.getColor());
+    }
+
+    public Project toProject() {
+        return new Project(id, name, color);
     }
 
     public long getId() {
