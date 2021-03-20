@@ -34,6 +34,8 @@ public class Task {
      */
     private long creationTimestamp;
 
+    private Project project;
+
     /**
      * Instantiates a new Task.
      *
@@ -110,6 +112,14 @@ public class Task {
 
     public long getCreationTimestamp() {
         return creationTimestamp;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     /**
