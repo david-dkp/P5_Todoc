@@ -11,6 +11,8 @@ import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.others.SortMethod;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -22,12 +24,16 @@ public class MainViewModel extends ViewModel {
 
     private MutableLiveData<SortMethod> _sortMethod = new MutableLiveData<>();
     private MediatorLiveData<List<Task>> _tasks = new MediatorLiveData<>();
-    private LiveData<List<Project>> _projects = todocRepository.getProjects();
+    private LiveData<List<Project>> _projects;
 
     public MainViewModel(@NonNull TodocRepository todocRepository) {
         this.todocRepository = todocRepository;
         this.executor = Executors.newSingleThreadExecutor();
 
+        _projects = todocRepository.getProjects();
+
+        //Default values
+        _tasks.setValue(Collections.emptyList());
         _sortMethod.setValue(SortMethod.NONE);
 
         setupTasks();

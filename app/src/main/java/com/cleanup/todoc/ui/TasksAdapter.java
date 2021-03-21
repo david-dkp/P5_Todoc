@@ -69,6 +69,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     }
 
     private void sort() {
+        if (sortMethod == null) return;
         switch (sortMethod) {
             case OLD_FIRST:
                 Collections.sort(tasks, new Task.TaskOldComparator());
@@ -92,7 +93,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     public void setSortMethod(SortMethod sortMethod) {
         this.sortMethod = sortMethod;
-        updateTasks(tasks);
     }
 
     /**
