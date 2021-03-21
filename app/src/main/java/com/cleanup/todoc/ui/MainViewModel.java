@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.others.SortMethod;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -19,12 +20,15 @@ public class MainViewModel extends ViewModel {
     private TodocRepository todocRepository;
     private Executor executor;
 
+    private MutableLiveData<SortMethod> _sortMethod = new MutableLiveData<>();
     private MediatorLiveData<List<Task>> _tasks = new MediatorLiveData<>();
     private LiveData<List<Project>> _projects = todocRepository.getProjects();
 
     public MainViewModel(@NonNull TodocRepository todocRepository) {
         this.todocRepository = todocRepository;
         this.executor = Executors.newSingleThreadExecutor();
+
+        _sortMethod.setValue(SortMethod.NONE);
 
         setupTasks();
     }
@@ -65,11 +69,29 @@ public class MainViewModel extends ViewModel {
         return null;
     }
 
+    public void setSortMethod(SortMethod sortMethod) {
+        _sortMethod.setValue(sortMethod);
+    }
+
     public LiveData<List<Project>> getProjects() {
         return _projects;
     }
 
     public LiveData<List<Task>> getTasks() {
         return _tasks;
+    }
+
+    public LiveData<SortMethod> getSortMethod() { return _sortMethod; }
+
+    public void insertTask(Task task) {
+        executor.execute(() -> {
+            todocRepository.insertTask(task);
+        });
+    }
+
+    public void deleteTask(Task task) {
+        executor.execute(() -> {
+            todocRepository.deleteTask(task);
+        });
     }
 }
