@@ -1,10 +1,15 @@
 package com.cleanup.todoc.data.local.todocdatabase;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.cleanup.todoc.data.local.todocdatabase.entities.ProjectEntity;
 import com.cleanup.todoc.data.local.todocdatabase.entities.TaskEntity;
@@ -24,9 +29,21 @@ public abstract class TodocDatabase extends RoomDatabase {
                     context,
                     TodocDatabase.class,
                     TODOC_DATABASE_NAME
-            ).build();
+            ).addCallback(PREPOPULATE_CALLBACK).build();
         }
 
         return instance;
     }
+
+    private final static Callback PREPOPULATE_CALLBACK = new Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+
+            //Insert default Projects
+            db.execSQL("INSERT INTO project_table VALUES ('1', 'Projet Tartampion', '"+ 0xFFEADAD1+"')");
+            db.execSQL("INSERT INTO project_table VALUES ('2', 'Projet Lucidia', '"+ 0xFFB4CDBA+"')");
+            db.execSQL("INSERT INTO project_table VALUES ('3', 'Projet Circus', '"+ 0xFFA3CED2+"')");
+        }
+    };
 }
