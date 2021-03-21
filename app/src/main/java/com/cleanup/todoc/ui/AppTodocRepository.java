@@ -13,11 +13,6 @@ import com.cleanup.todoc.model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.annotations.NonNull;
-
 public class AppTodocRepository implements TodocRepository{
 
     private TodocDao todocDao;

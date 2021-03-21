@@ -7,9 +7,6 @@ import com.cleanup.todoc.model.Task;
 
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-
 public interface TodocRepository {
 
     void insertProject(Project project);
