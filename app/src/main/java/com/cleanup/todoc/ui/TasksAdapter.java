@@ -12,8 +12,11 @@ import android.widget.TextView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.others.SortMethod;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +25,9 @@ import java.util.List;
  * @author Gaëtan HERFRAY
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
+
+    private SortMethod sortMethod;
+
     /**
      * The list of tasks the adapter deals with
      */
@@ -46,6 +52,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      */
     void updateTasks(@NonNull final List<Task> tasks) {
         this.tasks = tasks;
+        sort();
         notifyDataSetChanged();
     }
 
@@ -61,9 +68,31 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         taskViewHolder.bind(tasks.get(position));
     }
 
+    private void sort() {
+        switch (sortMethod) {
+            case OLD_FIRST:
+                Collections.sort(tasks, new Task.TaskOldComparator());
+                break;
+            case ALPHABETICAL:
+                Collections.sort(tasks, new Task.TaskAZComparator());
+                break;
+            case RECENT_FIRST:
+                Collections.sort(tasks, new Task.TaskRecentComparator());
+                break;
+            case ALPHABETICAL_INVERTED:
+                Collections.sort(tasks, new Task.TaskZAComparator());
+                break;
+        }
+    }
+
     @Override
     public int getItemCount() {
         return tasks.size();
+    }
+
+    public void setSortMethod(SortMethod sortMethod) {
+        this.sortMethod = sortMethod;
+        updateTasks(tasks);
     }
 
     /**
