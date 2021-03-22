@@ -13,6 +13,7 @@ import com.cleanup.todoc.data.local.todocdatabase.entities.ProjectEntity;
 import com.cleanup.todoc.data.local.todocdatabase.entities.TaskEntity;
 import com.cleanup.todoc.utils.LiveDataTestUtil;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -85,6 +86,43 @@ public class TodocDaoTest {
         List<ProjectEntity> projectEntities = LiveDataTestUtil.getOrAwaitValue(todocDao.getProjects());
 
         assert !projectEntities.contains(projectToDelete);
+    }
+
+    @Test
+    public void getTasks_withSuccess() throws InterruptedException {
+        TaskEntity[] expectedTasks = {
+                new TaskEntity(1, 1, "Salon", System.currentTimeMillis()),
+                new TaskEntity(2, 6, "Cuisine", System.currentTimeMillis()),
+                new TaskEntity(3, 2, "Toilettes", System.currentTimeMillis()),
+                new TaskEntity(4, 8, "Chambre 1", System.currentTimeMillis()),
+                new TaskEntity(5, 5, "Chambre 2", System.currentTimeMillis()),
+        };
+
+        for (TaskEntity taskEntity : expectedTasks) {
+            todocDao.insertTask(taskEntity);
+        }
+
+        List<TaskEntity> taskEntities = LiveDataTestUtil.getOrAwaitValue(todocDao.getTasks());
+
+        Assert.assertArrayEquals(expectedTasks, taskEntities.toArray());
+    }
+
+    @Test
+    public void getProjects_withSuccess() throws InterruptedException {
+        ProjectEntity[] expectedProjects = {
+                new ProjectEntity(1, "Artia", Color.BLUE),
+                new ProjectEntity(2, "Mortia", Color.RED),
+                new ProjectEntity(3, "Narnia", Color.MAGENTA),
+                new ProjectEntity(4, "21", Color.CYAN),
+        };
+
+        for (ProjectEntity projectEntity : expectedProjects) {
+            todocDao.insertProject(projectEntity);
+        }
+
+        List<ProjectEntity> projectEntities = LiveDataTestUtil.getOrAwaitValue(todocDao.getProjects());
+
+        Assert.assertArrayEquals(expectedProjects, projectEntities.toArray());
     }
 
 }
