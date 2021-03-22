@@ -1,20 +1,13 @@
 package com.cleanup.todoc;
 
-import androidx.lifecycle.Lifecycle;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.filters.LargeTest;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
+import com.cleanup.todoc.assertions.RecyclerViewAssertions;
 import com.cleanup.todoc.ui.MainActivity;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,8 +18,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.cleanup.todoc.TestUtils.withRecyclerView;
-import static org.hamcrest.Matchers.equalTo;
+import static com.cleanup.todoc.utils.TestUtils.withRecyclerView;
 import static org.junit.Assert.assertThat;
 
 /**

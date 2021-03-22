@@ -1,4 +1,4 @@
-package com.cleanup.todoc;
+package com.cleanup.todoc.assertions;
 
 import android.view.View;
 
