@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey;
 
 import com.cleanup.todoc.model.Project;
 
+import java.util.Objects;
+
 @Entity(tableName = "project_table")
 public class ProjectEntity {
 
@@ -51,5 +53,20 @@ public class ProjectEntity {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjectEntity that = (ProjectEntity) o;
+        return id == that.id &&
+                color == that.color &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, color);
     }
 }

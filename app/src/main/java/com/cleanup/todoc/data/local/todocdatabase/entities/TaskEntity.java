@@ -5,6 +5,8 @@ import androidx.room.PrimaryKey;
 
 import com.cleanup.todoc.model.Task;
 
+import java.util.Objects;
+
 @Entity(tableName = "task_table")
 public class TaskEntity {
 
@@ -62,5 +64,21 @@ public class TaskEntity {
 
     public void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskEntity that = (TaskEntity) o;
+        return id == that.id &&
+                projectId == that.projectId &&
+                creationTimestamp == that.creationTimestamp &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, projectId, name, creationTimestamp);
     }
 }
