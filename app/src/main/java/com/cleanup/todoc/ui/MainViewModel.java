@@ -40,6 +40,14 @@ public class MainViewModel extends ViewModel {
     }
 
     private void setupTasks() {
+        _tasks.addSource(_projects, new Observer<List<Project>>() {
+            @Override
+            public void onChanged(List<Project> projects) {
+                List<Task> tasks = linkProjectToTasks(_tasks.getValue(), projects);
+                _tasks.setValue(tasks);
+            }
+        });
+
         _tasks.addSource(todocRepository.getTasks(), new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> currentTasks) {
@@ -48,16 +56,11 @@ public class MainViewModel extends ViewModel {
             }
         });
 
-        _tasks.addSource(_projects, new Observer<List<Project>>() {
-            @Override
-            public void onChanged(List<Project> projects) {
-                List<Task> tasks = linkProjectToTasks(_tasks.getValue(), projects);
-                _tasks.setValue(tasks);
-            }
-        });
     }
 
     private List<Task> linkProjectToTasks(List<Task> tasks, List<Project> projects) {
+        if (projects == null) return tasks;
+
         for (Task task : tasks) {
             task.setProject(findProjectForTask(task, projects));
         }
