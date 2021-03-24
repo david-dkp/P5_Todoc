@@ -41,5 +41,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     //Testing
-    androidTestImplementation "android.arch.core:core-testing:1.1.1"
+    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 }
