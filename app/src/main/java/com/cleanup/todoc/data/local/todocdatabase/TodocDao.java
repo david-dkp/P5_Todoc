@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.cleanup.todoc.data.local.todocdatabase.entities.ProjectEntity;
 import com.cleanup.todoc.data.local.todocdatabase.entities.TaskEntity;
@@ -22,11 +23,19 @@ public interface TodocDao {
     @Delete
     void deleteTask(TaskEntity taskEntity);
 
+    @Update
+    void updateTask(TaskEntity taskEntity);
+
     @Insert
     void insertProject(ProjectEntity projectEntity);
 
     @Delete
     void deleteProject(ProjectEntity projectEntity);
+
+    @Update
+    void updateProject(ProjectEntity projectEntity);
+
+
 
     @Query("SELECT * FROM task_table")
     LiveData<List<TaskEntity>> getTasks();

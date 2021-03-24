@@ -42,6 +42,16 @@ public class AppTodocRepository implements TodocRepository{
     }
 
     @Override
+    public void updateProject(Project project) {
+        todocDao.updateProject(ProjectEntity.fromProject(project));
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        todocDao.updateTask(TaskEntity.fromTask(task));
+    }
+
+    @Override
     public LiveData<List<Project>> getProjects() {
         return Transformations.map(todocDao.getProjects(), new Function<List<ProjectEntity>, List<Project>>() {
             @Override

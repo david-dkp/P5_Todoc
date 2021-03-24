@@ -89,6 +89,37 @@ public class TodocDaoTest {
     }
 
     @Test
+    public void updateTask_withSuccess() throws InterruptedException {
+        TaskEntity taskEntity = new TaskEntity(1, 3, "FirstName", System.currentTimeMillis());
+
+        todocDao.insertTask(taskEntity);
+
+        taskEntity.setName("LastName");
+
+        todocDao.updateTask(taskEntity);
+
+        List<TaskEntity> taskEntities = LiveDataTestUtil.getOrAwaitValue(todocDao.getTasks());
+
+        assert taskEntities.contains(taskEntity);
+    }
+
+    @Test
+    public void updateProject_withSuccess() throws InterruptedException {
+        ProjectEntity projectEntity = new ProjectEntity(1, "FirstName", Color.GREEN);
+
+        todocDao.insertProject(projectEntity);
+
+        projectEntity.setName("LastName");
+        projectEntity.setColor(Color.GREEN);
+
+        todocDao.updateProject(projectEntity);
+
+        List<ProjectEntity> projectEntities = LiveDataTestUtil.getOrAwaitValue(todocDao.getProjects());
+
+        assert projectEntities.contains(projectEntity);
+    }
+
+    @Test
     public void getTasks_withSuccess() throws InterruptedException {
         TaskEntity[] expectedTasks = {
                 new TaskEntity(1, 1, "Salon", System.currentTimeMillis()),

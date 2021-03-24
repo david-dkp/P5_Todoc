@@ -17,6 +17,10 @@ public interface TodocRepository {
 
     void deleteTask(Task task);
 
+    void updateProject(Project project);
+
+    void updateTask(Task task);
+
     LiveData<List<Project>> getProjects();
 
     LiveData<List<Task>> getTasks();
