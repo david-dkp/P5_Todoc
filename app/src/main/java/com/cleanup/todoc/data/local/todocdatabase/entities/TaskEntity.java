@@ -1,5 +1,6 @@
 package com.cleanup.todoc.data.local.todocdatabase.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,6 +16,7 @@ public class TaskEntity {
 
     private long projectId;
 
+    @NonNull
     private String name;
 
     private long creationTimestamp;
