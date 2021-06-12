@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunnerArguments clearPackageData: 'true'
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -17,6 +18,11 @@ android {
                         "room.incremental":"true",
                         "room.expandProjection":"true"]
             }
+        }
+
+        testOptions {
+            execution 'ANDROIDX_TEST_ORCHESTRATOR'
+            animationsDisabled = true
         }
     }
     buildTypes {
@@ -53,4 +59,8 @@ dependencies {
     //Testing
     androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
+    //Test utils
+    androidTestUtil 'androidx.test:orchestrator:1.4.0-alpha05'
+
 }
